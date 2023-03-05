@@ -7,6 +7,10 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Link slideover href="{{ route('students.create') }}"
+                class="mb-5 inline-flex rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline">
+            Create Student
+            </Link>
             <x-splade-table :for="$students">
                 <x-slot:empty-state>
                     <p>Whoops!</p>
