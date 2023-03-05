@@ -4,8 +4,9 @@ namespace App\Tables;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
+use ProtoneMedia\Splade\AbstractTable;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class Students extends AbstractTable
 {
@@ -55,6 +56,14 @@ class Students extends AbstractTable
             ->column('phone_number')
             ->column(label: 'Actions', exportAs: false)
             ->export()
+            ->bulkAction(
+                label: 'Delete Selected Students',
+                each: fn (Student $student) => $student->delete(),
+                confirm: 'Are you sure you want to delete the selected students?',
+                confirmButton: 'Delete',
+                cancelButton: 'Cancel',
+                after: fn () => Toast::info('Students deleted successfully!'),
+            )
             ->paginate();
 
         // ->searchInput()
