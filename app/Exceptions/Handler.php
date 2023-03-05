@@ -41,6 +41,8 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(\ProtoneMedia\Splade\SpladeCore::exceptionHandler($this));
+
         $this->reportable(function (Throwable $e) {
             //
         });
