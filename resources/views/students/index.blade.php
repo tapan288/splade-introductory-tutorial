@@ -15,6 +15,10 @@
                 <x-slot:empty-state>
                     <p>Whoops!</p>
                     </x-slot>
+                    <x-splade-cell actions as="$student">
+                        <Link slideover href="{{ route('students.edit', $student->id) }}"> Edit </Link>
+                    </x-splade-cell>
+
             </x-splade-table>
         </div>
     </div>
