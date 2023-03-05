@@ -53,7 +53,8 @@ class Students extends AbstractTable
             ->column('name')
             ->column('email')
             ->column('phone_number')
-            ->column(label: 'Actions')
+            ->column(label: 'Actions', exportAs: false)
+            ->export()
             ->paginate();
 
         // ->searchInput()
