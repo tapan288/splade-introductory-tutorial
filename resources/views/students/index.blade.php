@@ -16,7 +16,11 @@
                     <p>Whoops!</p>
                     </x-slot>
                     <x-splade-cell actions as="$student">
-                        <Link slideover href="{{ route('students.edit', $student->id) }}"> Edit </Link>
+                        <Link slideover href="{{ route('students.edit', $student->id) }}" class="text-indigo-600"> Edit
+                        </Link>
+                        <x-splade-form action="{{ route('students.destroy', $student) }}" method="DELETE" confirm>
+                            <button class="text-bold text-indigo-600" type="submit">Delete</button>
+                        </x-splade-form>
                     </x-splade-cell>
 
             </x-splade-table>
