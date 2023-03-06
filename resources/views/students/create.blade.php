@@ -14,6 +14,9 @@
             @endforeach
         </x-splade-select>
 
+        <x-splade-file class="mt-5" name="avatar" filepond min-size="50KB" max-size="2MB" preview
+            accept="image/png" />
+
         <x-splade-submit class="mt-5" />
     </x-splade-form>
 </x-splade-modal>

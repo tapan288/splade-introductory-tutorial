@@ -8,6 +8,7 @@ use App\Tables\Students;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -29,9 +30,19 @@ class StudentController extends Controller
     {
         $section = Section::findOrFail($request->section_id);
 
-        $student = Student::create(
-            $request->validated() + ['class_id' => $section->class_id]
-        );
+        $avatar = $request->file('avatar');
+        $name = $avatar->hashName();
+
+        Storage::put("public/avatars", $avatar);
+
+        $student = Student::create([
+            'class_id' => $section->class_id,
+            'avatar' => "storage/avatars/$name",
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'section_id' => $request->section_id,
+        ]);
 
         return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
