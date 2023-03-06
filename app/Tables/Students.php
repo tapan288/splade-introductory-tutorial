@@ -2,6 +2,7 @@
 
 namespace App\Tables;
 
+use App\Models\Classes;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\SpladeTable;
@@ -54,8 +55,17 @@ class Students extends AbstractTable
             ->column('name')
             ->column('email')
             ->column('phone_number')
+            ->column('class.name')
+            ->column('section.name')
             ->column(label: 'Actions', exportAs: false)
             ->export()
+            ->selectFilter(
+                key: 'class_id',
+                options: Classes::all()->pluck('name', 'id')->toArray(),
+                label: 'Filter By Class',
+                noFilterOption: true,
+                noFilterOptionLabel: 'All Classes'
+            )
             ->bulkAction(
                 label: 'Delete Selected Students',
                 each: fn (Student $student) => $student->delete(),
