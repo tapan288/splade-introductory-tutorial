@@ -15,6 +15,12 @@
                 <x-slot:empty-state>
                     <p>Whoops!</p>
                     </x-slot>
+                    <x-splade-cell avatar as="$student">
+                        @if ($student->avatar)
+                            <img src="{{ asset($student->avatar) }}" alt="{{ $student->name }}"
+                                class="w-10 h-10 rounded-full">
+                        @endif
+                    </x-splade-cell>
                     <x-splade-cell actions as="$student">
                         <Link slideover href="{{ route('students.edit', $student->id) }}" class="text-indigo-600"> Edit
                         </Link>

@@ -55,6 +55,7 @@ class Students extends AbstractTable
             ->column('name')
             ->column('email')
             ->column('phone_number')
+            ->column(label: 'Avatar', exportAs: false)
             ->column('class.name')
             ->column('section.name')
             ->column(label: 'Actions', exportAs: false)
