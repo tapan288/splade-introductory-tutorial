@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyRoleRequest;
 use App\Models\Role;
 use App\Tables\Roles;
 use App\Models\Permission;
@@ -53,6 +54,15 @@ class RoleController extends Controller
         $role->permissions()->sync($request->permissions);
 
         Toast::title('Role details updated successfully.');
+
+        return redirect()->route('roles.index');
+    }
+
+    public function destroy(DestroyRoleRequest $request, Role $role)
+    {
+        $role->delete();
+
+        Toast::title('Role deleted successfully.');
 
         return redirect()->route('roles.index');
     }
