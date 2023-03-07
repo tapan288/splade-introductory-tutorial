@@ -7,6 +7,8 @@ use App\Tables\Roles;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class RoleController extends Controller
 {
@@ -31,6 +33,26 @@ class RoleController extends Controller
         ]);
 
         $role->permissions()->sync($request->permissions);
+
+        return redirect()->route('roles.index');
+    }
+
+    public function edit(Role $role)
+    {
+        $permissions = Permission::all();
+
+        return view('roles.edit', compact('permissions', 'role'));
+    }
+
+    public function update(UpdateRoleRequest $request, Role $role)
+    {
+        $role->update([
+            'title' => $request->title,
+        ]);
+
+        $role->permissions()->sync($request->permissions);
+
+        Toast::title('Role details updated successfully.');
 
         return redirect()->route('roles.index');
     }
