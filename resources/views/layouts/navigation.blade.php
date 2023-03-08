@@ -16,12 +16,16 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
-                            {{ __('Students') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">
-                            {{ __('Roles') }}
-                        </x-nav-link>
+                        @can('student_access')
+                            <x-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
+                                {{ __('Students') }}
+                            </x-nav-link>
+                        @endcan
+                        @can('role_access')
+                            <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">
+                                {{ __('Roles') }}
+                            </x-nav-link>
+                        @endcan
                     </div>
                 </div>
 

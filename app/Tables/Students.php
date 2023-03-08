@@ -5,6 +5,7 @@ namespace App\Tables;
 use App\Models\Classes;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use ProtoneMedia\Splade\SpladeTable;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -28,7 +29,7 @@ class Students extends AbstractTable
      */
     public function authorize(Request $request)
     {
-        return auth()->check();
+        return Gate::allows('student_access');
     }
 
     /**
