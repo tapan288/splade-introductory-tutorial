@@ -8,12 +8,15 @@ use App\Tables\Students;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
     public function index()
     {
+        $this->authorize('student_access');
+
         return view('students.index', [
             'students' => Students::class,
         ]);
@@ -21,6 +24,8 @@ class StudentController extends Controller
 
     public function create()
     {
+        $this->authorize('student_create');
+
         $sections = Section::with('class')->get();
 
         return view('students.create', compact('sections'));
@@ -28,6 +33,8 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
+        $this->authorize('student_create');
+
         $section = Section::findOrFail($request->section_id);
 
         $avatar = $request->file('avatar');
@@ -49,6 +56,8 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
+        $this->authorize('student_edit');
+
         $sections = Section::with('class')->get();
 
         return view('students.edit', compact('student', 'sections'));
@@ -56,6 +65,8 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, Student $student)
     {
+        $this->authorize('student_edit');
+
         $section = Section::findOrFail($request->section_id);
 
         $student->update($request->validated() + ['class_id' => $section->class_id]);
@@ -65,6 +76,8 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
+        $this->authorize('student_delete');
+
         $student->delete();
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully.');

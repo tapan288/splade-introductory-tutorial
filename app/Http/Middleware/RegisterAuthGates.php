@@ -16,7 +16,7 @@ class RegisterAuthGates
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user()->loadMissing('roles.permissions');
+        $user = $request?->user()?->loadMissing('roles.permissions');
 
         if ($user) {
             foreach ($user->roles as $role) {
